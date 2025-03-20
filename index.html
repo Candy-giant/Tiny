@@ -2021,7 +2021,7 @@ alert('这可真有你的风格~');
         slots[0].textContent = getRandomItem(lotteryData.regions);
         slots[1].textContent = getRandomItem(lotteryData.persons);
         slots[2].textContent = getRandomItem(lotteryData.events[slots[1].textContent] || []);
-      }, 200);
+      }, 50);
     });
     function getRandomItem(pool) {
       const totalWeight = pool.reduce((sum, item) => sum + item.weight, 0);

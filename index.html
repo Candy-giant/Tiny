@@ -308,28 +308,38 @@ lotteryData.events[person]=[...(lotteryData.events[person]||[]),...customEvents[
 }
 });
 
-document.getElementById('addEventBtn').addEventListener('click',function(){
-const currentPerson=document.getElementById('slot2').textContent;
-if(!lotteryData.persons.some(p=>p.label===currentPerson)){
-return alert('还没抽就想改？不会是想让我陪你玩吧~😎');
-}
-const newEvent=prompt(`哦？让我听听你这个变态还想怎么玩~😎`);
-if(newEvent){
-document.getElementById('slot3').textContent=newEvent;
-const newEventObj={label:newEvent,weight:6};
-if(!lotteryData.events[currentPerson]){
-lotteryData.events[currentPerson]=[];
-}
-lotteryData.events[currentPerson].push(newEventObj);
-const customEvents=JSON.parse(localStorage.getItem('customEvents')||"{}");
-if(!customEvents[currentPerson]){
-customEvents[currentPerson]=[];
-}
-customEvents[currentPerson].push(newEventObj);
-localStorage.setItem('customEvents',JSON.stringify(customEvents));
-alert('这可真有你的风格~');
-}
+document.getElementById('addEventBtn').addEventListener('click', function() {
+  const currentPerson = document.getElementById('slot2').textContent;
+  const currentRegion = document.getElementById('slot1').textContent;//合并注释前空格
+  
+  if (!lotteryData.persons.some(p => p.label === currentPerson)) {
+    return alert('还没抽就想改？不会是想让我陪你玩吧~😎');
+  }
+  
+  const newEvent = prompt(`哦？让我听听你这个变态还想怎么玩~😎`);
+  if (newEvent) {
+    document.getElementById('slot3').textContent = newEvent;
+    
+    //保存到历史记录
+    saveHistory(currentRegion, currentPerson, newEvent);
+    
+    const newEventObj = {label: newEvent, weight:6};
+    if (!lotteryData.events[currentPerson]) {
+      lotteryData.events[currentPerson] = [];
+    }
+    lotteryData.events[currentPerson].push(newEventObj);
+    
+    const customEvents = JSON.parse(localStorage.getItem('customEvents') || "{}");
+    if (!customEvents[currentPerson]) {
+      customEvents[currentPerson] = [];
+    }
+    customEvents[currentPerson].push(newEventObj);
+    localStorage.setItem('customEvents', JSON.stringify(customEvents));
+    
+    alert('这可真有你的风格~');
+  }
 });
+
 </script>
 
 <style>

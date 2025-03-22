@@ -192,7 +192,7 @@ function exportCustomData() {
   // 创建下载链接
   const link = document.createElement('a');
   link.href = URL.createObjectURL(exportBlob);
-  link.download = `要 素 过 多_${new Date().toLocaleDateString()}.json`;
+  link.download = `要 素 过 多_${Date.now()}.json`;
   link.click();
   setTimeout(() => URL.revokeObjectURL(link.href), 1000);
 }
